@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ikhabour <ikhabour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:17:43 by ikhabour          #+#    #+#             */
-/*   Updated: 2023/02/17 22:02:54 by ikhabour         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:40:05 by ikhabour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 char	*ft_strjoinn(char *s1, char *s2)
 {
@@ -72,9 +72,12 @@ void	flood_fill(char **map, int x, int y)
 	flood_fill(map, x, y - 1);
 }
 
-void	print_move_count(t_map *data)
+void	free_map(char **map)
 {
-	ft_putstr_fd("Move Count : ", 1);
-	ft_putnbr_fd(data->move_count, 1);
-	ft_putstr_fd("\n", 1);
+	int	i;
+
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
 }

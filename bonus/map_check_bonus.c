@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_check.c                                        :+:      :+:    :+:   */
+/*   map_check_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ikhabour <ikhabour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:44:47 by ikhabour          #+#    #+#             */
-/*   Updated: 2023/02/19 13:53:19 by ikhabour         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:12:46 by ikhabour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	find_player_pos(char **map, t_cords *crds)
 {
@@ -38,7 +38,7 @@ void	check_path(char **map)
 		while (map[y][x])
 		{
 			if (map[y][x] == 'C' || map[y][x] == 'E')
-				(write(2, "error7\n", 6), exit(1));
+				(write(2, "Invalid path\n", 13), exit(1));
 			x++;
 		}
 		y++;
@@ -80,18 +80,18 @@ char	**read_map(int fd)
 	str[0] = '\0';
 	temp = get_next_line(fd);
 	if (!temp)
-		(write(2, "error8\n", 7), exit(1));
+		(write(2, "Empty line on the map\n", 22), exit(1));
 	while (temp != NULL)
 	{
 		if (ft_strcmp(temp, "\n") == 0)
-			(write(2, "error9\n", 7), exit(1));
+			(write(2, "Newline on the map\n", 19), exit(1));
 		str1 = str;
 		str = ft_strjoinn(str1, temp);
 		free(str1);
 		temp = get_next_line(fd);
 	}
 	if (str[ft_strlen(str) - 1] == '\n')
-		(write(2, "error10\n", 7), exit(1));
+		(write(2, "Newline on the map\n", 19), exit(1));
 	map = ft_split(str, '\n');
 	return (free(str), close(fd), map);
 }
@@ -108,7 +108,9 @@ t_map	validate_map(char *argv)
 	data.c = 0;
 	data.e = 0;
 	data.p = 0;
+	data.enemy = 0;
 	map = read_map(fd);
+	close(fd);
 	fd = open(argv, O_RDWR);
 	if (fd == -1)
 		perror("Failed to open the map");

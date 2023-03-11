@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ikhabour <ikhabour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:24:43 by ikhabour          #+#    #+#             */
-/*   Updated: 2023/02/19 13:39:34 by ikhabour         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:44:02 by ikhabour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -54,6 +54,7 @@ void	make_move(int keycode, t_map *data, t_cords *player_pos)
 		move_right(data, player_pos);
 	if (keycode == 13 || keycode == 126)
 		move_up(data, player_pos);
+	display_count(*data);
 }
 
 int	press(int keycode, t_map *data)
@@ -89,10 +90,14 @@ int	main(int argc, char **argv)
 	data = validate_map(argv[1]);
 	data.move_count = 0;
 	data.current_tile = '0';
+	find_enemy_coordinates(&data);
 	data.mlx_ptr = mlx_init();
 	data.win_ptr = mlx_new_window(data.mlx_ptr, (data.line_length * 64),
 			(data.line_count * 64), "so_long");
 	render_map(data);
+	mlx_string_put(data.mlx_ptr, data.win_ptr, 0, 0, 0255204, "Moves:");
+	mlx_string_put(data.mlx_ptr, data.win_ptr, 64, 0, 0255204, "0");
 	mlx_key_hook(data.win_ptr, press, &data);
+	mlx_loop_hook(data.mlx_ptr, move_enemy, &data);
 	mlx_loop(data.mlx_ptr);
 }

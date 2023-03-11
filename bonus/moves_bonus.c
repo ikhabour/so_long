@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moves.c                                            :+:      :+:    :+:   */
+/*   moves_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ikhabour <ikhabour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 00:50:46 by ikhabour          #+#    #+#             */
-/*   Updated: 2023/02/18 21:02:11 by ikhabour         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:48:23 by ikhabour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	move_left(t_map *data, t_cords *player_pos)
 {
@@ -20,7 +20,6 @@ void	move_left(t_map *data, t_cords *player_pos)
 		(player_pos->x)--;
 		after_move(data, player_pos, "left");
 		data->move_count++;
-		print_move_count(data);
 	}
 }
 
@@ -32,7 +31,6 @@ void	move_down(t_map *data, t_cords *player_pos)
 		(player_pos->y)++;
 		after_move(data, player_pos, "down");
 		data->move_count++;
-		print_move_count(data);
 	}
 }
 
@@ -44,7 +42,6 @@ void	move_right(t_map *data, t_cords *player_pos)
 		(player_pos->x)++;
 		after_move(data, player_pos, "right");
 		data->move_count++;
-		print_move_count(data);
 	}
 }
 
@@ -56,7 +53,6 @@ void	move_up(t_map *data, t_cords *player_pos)
 		(player_pos->y)--;
 		after_move(data, player_pos, "up");
 		data->move_count++;
-		print_move_count(data);
 	}
 }
 
